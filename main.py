@@ -26,7 +26,7 @@ def main():
     Player.containers = (updatable, drawable)
     
     AsteroidField()
-    Player(x, y)
+    player = Player(x, y)
 
     while state:
         screen.fill((0, 0, 0))
@@ -37,7 +37,12 @@ def main():
         for item in drawable:
             item.draw(screen)
 
+        # Update the screen
         pygame.display.flip()
+
+        for asteroid in asteroids:
+            if asteroid.detect_collision(player):
+                exit("Game over!")
 
         # End loop when screen is closed
         for event in pygame.event.get():
